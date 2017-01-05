@@ -4,11 +4,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 
 public class GoogleTest {
@@ -26,22 +25,20 @@ public class GoogleTest {
 
     @Test
     public void googleTest() throws InterruptedException {
-        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("test-type");
-        capabilities.setCapability("chrome.binary","chromedriver/chromedriver.exe");
-        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+        driver = new ChromeDriver();
+        driver.get("http://sta-kiv-gt1-setup01-spp-01.nix.cydmodule.com:8080/admin/tester.jsp");
+        Thread.sleep(2000);
+        WebElement login = driver.findElement(By.cssSelector("input[name=login]"));
+        login.sendKeys("manager");
+        Thread.sleep(2000);
+        WebElement password = driver.findElement(By.name("password"));
+        password.sendKeys("manager");
+        Thread.sleep(2000);
+        WebElement goToTester = driver.findElement(By.cssSelector("input[value=Login]"));
+        goToTester.click();
 
-        driver = new ChromeDriver(capabilities);
-        //driver = new ChromeDriver();
-        driver.get("https://www.google.com.ua/");
-        Thread.sleep(2000);
-        WebElement element = driver.findElement(By.id("lst-ib"));
-        element.sendKeys("Webdriver");
-        Thread.sleep(2000);
-        WebElement find = driver.findElement(By.name("btnG"));
-        find.click();
-        Thread.sleep(2000);
+        //find.click();
+        //Thread.sleep(2000);
     }
 }
 
